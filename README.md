@@ -1,14 +1,12 @@
 # REE Money
 
-REE Money provides an entire platform for many plugins to automatically
-create player account, and create plugins that can purchase, credit,
-or transfer money between accounts easily.
-
-With ATMs and banks around the city that players can use to access their
-money, it provides a much more realistic feel to any roleplay.
+REE Money intends to be an entire banking platform for custom plugins
+that want to use REE. It also provides over 100 in-game ATMs and banks that 
+players can interact with. The example below shows you how to build a simple
+soda shop using **ree-money**. 
 
 > #### Requirements
-> The following plugins are also required:
+> The following FiveM plugins are also required:
 > * async
 > * mysql-async
 > * NativeUILua-Reloaded
@@ -20,6 +18,7 @@ money, it provides a much more realistic feel to any roleplay.
 ### Important Features
 * :sparkles: **Usable ATMs and Banks throughout San Andreas**
 * :sparkles: Balances Always Synced
+* :sparkles: Hot Reloading (mostly) Works
 * :zap: Highly Optimized (keep your 60+ fps!)
 * :zap: Automatically Create Player Accounts
 * :lock: Designed with security in mind
@@ -29,12 +28,12 @@ money, it provides a much more realistic feel to any roleplay.
 * [ ] Support for ATM withdraw and deposit limits
 * [ ] General bug squashing
 
-### In-Game Banks & ATMs
+## In-Game Banks & ATMs
 
 There are around individual 100 ATM locations available for use
 in San Andreas with **ree-money**, and bank locations that players
 can enter. When you walk up to a bank or ATM, you will see markers showing
-where the player can stand to activate the menu.
+where the player can stand and press <kbd>E</kbd> to activate the menu.
 
 ![GTA Money Example](docs/images/markers.png)
 
@@ -108,20 +107,24 @@ AddEventHandler("example:buySoda", function(amount)
 
 ## Events
 
-These are the available events for both the server and the client. The
-`NET` denotes that is a network event -- either sent or received.
+These are the available events for **ree-money**. 
 
 **Client Events:**
-* `ree-money:getBalance`
-* `ree-money:setBalance (NET)`
-* `ree-money:transferSuccess (NET)`
-* `ree-money:displayOverlay`
+```
+ree-money:getBalance(func cb(table{1, 2, 3} balances))
+ree-money:setBalance(table{1, 2, 3} balances)
+ree-money:transferSuccess(string msg)
+ree-money:displayOverlay()
+```
 
 **Server Events:** 
-* `ree-money:getBalance (NET)`
-* `ree-money:purchaseItem`
-* `ree-money:transfer`
-* `ree-money:debit`
+```
+ree-money:getBalance()      -- NET
+ree-money:purchaseItem(number player_id, number amount, string desc, 
+                       func callback(success, errMsg))
+ree-money:transfer(number from_account, number to_account, 
+                   number amount, string reason)
+```
 
 
 ## License
